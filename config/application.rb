@@ -36,7 +36,7 @@ module SistemaGestionProyectosBackend
         resource '*',
         :headers => :any,
         :expose  => ['access-token', 'client', 'expiry', 'token-type', 'uid', 'Authorization'],
-        :methods => [:get, :post, :options]
+        :methods => [:get, :post, :options, :delete, :patch, :put]
       end
     end
   end
