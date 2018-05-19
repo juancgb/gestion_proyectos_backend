@@ -1,5 +1,5 @@
 class Api::V1::OfficesController < ApplicationController
-    /before_action :authenticate_user!/
+    before_action :authenticate_user!
     before_action :set_office, only: [:show, :update, :destroy]
     #Funcion que muesta todas las sedes
     def index

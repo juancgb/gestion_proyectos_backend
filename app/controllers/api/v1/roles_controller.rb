@@ -1,5 +1,5 @@
 class Api::V1::RolesController < ApplicationController
-  /before_action :authenticate_user!/
+  before_action :authenticate_user!
   before_action :set_role, only: [:show, :update, :destroy]
   #Funcion que muesta todos los roles
   def index
@@ -37,6 +37,5 @@ class Api::V1::RolesController < ApplicationController
   #Funcion que setea un rol especifica
   def set_role
     @role = Role.find(params[:id])
-    @role.inspect
   end
 end
