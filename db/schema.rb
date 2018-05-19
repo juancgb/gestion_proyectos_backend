@@ -10,16 +10,77 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180422171444) do
+ActiveRecord::Schema.define(version: 20180519023320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.bigint "process_level_id"
+    t.bigint "project_process_id"
+    t.string "name"
+    t.text "description"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_level_id"], name: "index_activities_on_process_level_id"
+    t.index ["project_process_id"], name: "index_activities_on_project_process_id"
+  end
+
+  create_table "careers", force: :cascade do |t|
+    t.string "name"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "office_careers", force: :cascade do |t|
+    t.bigint "office_id"
+    t.bigint "career_id"
+    t.boolean "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["career_id"], name: "index_office_careers_on_career_id"
+    t.index ["office_id"], name: "index_office_careers_on_office_id"
+  end
 
   create_table "offices", force: :cascade do |t|
     t.string "name"
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "process_level_statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "process_levels", force: :cascade do |t|
+    t.bigint "project_process_id"
+    t.bigint "process_level_status_id"
+    t.boolean "mandatory"
+    t.boolean "request"
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["process_level_status_id"], name: "index_process_levels_on_process_level_status_id"
+    t.index ["project_process_id"], name: "index_process_levels_on_project_process_id"
+  end
+
+  create_table "project_processes", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "director_id"
+    t.bigint "office_id"
+    t.string "name"
+    t.bigint "career_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["career_id"], name: "index_project_processes_on_career_id"
+    t.index ["office_id"], name: "index_project_processes_on_office_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -72,6 +133,14 @@ ActiveRecord::Schema.define(version: 20180422171444) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "activities", "process_levels"
+  add_foreign_key "activities", "project_processes"
+  add_foreign_key "office_careers", "careers"
+  add_foreign_key "office_careers", "offices"
+  add_foreign_key "process_levels", "process_level_statuses"
+  add_foreign_key "process_levels", "project_processes"
+  add_foreign_key "project_processes", "careers"
+  add_foreign_key "project_processes", "offices"
   add_foreign_key "user_roles", "offices"
   add_foreign_key "user_roles", "roles"
   add_foreign_key "user_roles", "users"
