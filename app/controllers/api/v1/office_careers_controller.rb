@@ -1,6 +1,11 @@
 class Api::V1::OfficeCareersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_office_career, only: [:show, :update, :destroy]
+    #Funcion que busca la relacion por el id de la sede
+    def index_by_office 
+        @office_careers = OfficeCareer.where(office_id: params[:office_id])
+        json_response(@office_careers)
+    end
     #Funcion que crea una carrera en una sede
     def create
         @office_career = OfficeCareer.create!(office_career_params)
