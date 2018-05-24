@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # Creacion de roles
-/roles = Role.create([
+roles = Role.create([
     { name: 'Admin', description: 'Administrador del sistema', status: true }
 ])
 
@@ -24,7 +24,7 @@ offices = Office.create([
 # Creacion de la relacion usuarios-sedes
 UserRole.create([
     { user: users.first, office: offices.first }
-])/
+])
 
 # Creacion de sedes
 process_level_statuses = ProcessLevelStatus.create([
