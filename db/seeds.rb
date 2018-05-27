@@ -8,22 +8,34 @@
 
 # Creacion de roles
 roles = Role.create([
-    { name: 'Admin', description: 'Administrador del sistema', status: true }
+    { name: 'Admin', description: 'Administrador del sistema', status: true },
+    { name: 'Director', description: 'Director de trabajos de grado', status: true },
+    { name: 'Estudiante', description: 'Estudiante que realiza en trabajo de grado', status: true }
 ])
 
 # Creacion de usuarios
 users = User.create([
-    { name: 'Admin', nickname: 'Admin', email: 'admin@gestionproyectos.edu.co', password: '123456789' }
+    { name: 'Admin', nickname: 'Admin', email: 'admin@gestionproyectos.edu.co', password: '123456789' },
+    { name: 'Director', nickname: 'Director', email: 'director@univalle.edu.co', password: '123456789' },
+    { name: 'Estudiante', nickname: 'Estudiante', email: 'estudiante@univalle.edu.co', password: '123456789' }
 ])
 
 # Creacion de sedes
 offices = Office.create([
-    { name: 'Admin', status: true }
+    { name: 'Sede Tulua', status: true },
+    { name: 'Sede Buga', status: true },
+    { name: 'Sede Zarzal', status: true },
+    { name: 'Sede Palmira', status: true }
 ])
 
 # Creacion de la relacion usuarios-sedes
 UserRole.create([
-    { user: users.first, office: offices.first }
+    { user: users.first, office: offices.first },
+    { user: users.first, office: offices.second },
+    { user: users.first, office: offices.third },
+    { user: users.first, office: offices.fourth },
+    { user: users.second, office: offices.first },
+    { user: users.third, office: offices.first }
 ])
 
 # Creacion de sedes

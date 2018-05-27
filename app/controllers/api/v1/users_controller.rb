@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_params, only: [:assign_role]
     before_action :find_role, only: [:assign_role]
 

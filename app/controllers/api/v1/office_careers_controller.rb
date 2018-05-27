@@ -1,5 +1,5 @@
 class Api::V1::OfficeCareersController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_office_career, only: [:show, :update, :destroy]
     #Funcion que busca la relacion por el id de la sede
     def index_by_office 

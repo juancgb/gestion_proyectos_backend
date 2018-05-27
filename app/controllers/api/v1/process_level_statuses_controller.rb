@@ -1,5 +1,5 @@
 class Api::V1::ProcessLevelStatusesController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_process_level_status, only: [:show, :update, :destroy]
     #Funcion que muesta todos los carreras
     def index

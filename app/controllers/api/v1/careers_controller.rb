@@ -1,5 +1,5 @@
 class Api::V1::CareersController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_career, only: [:show, :update, :destroy]
     before_action :query_params, only: [:index_by_office]
     #Funcion que muesta todos los carreras

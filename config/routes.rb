@@ -3,6 +3,12 @@ Rails.application.routes.draw do
   namespace :api, :defaults => {:format => :json} do
   	namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth'
+      post 'users/assign_role' => 'users#assign_role'
+      get 'activities/find_by_process_level' => 'activities#find_by_process_level'
+      get 'process_levels/find_by_process' => 'process_levels#find_by_process'
+      get 'project_processes/find_by_office' => 'project_processes#find_by_office'
+      get 'project_processes/find_by_career' => 'project_processes#find_by_career'
+      get 'project_processes/find_by_office_career' => 'project_processes#find_by_office_career'
       resources :roles
       resources :offices
       resources :activities
@@ -11,9 +17,6 @@ Rails.application.routes.draw do
       resources :process_level_statuses
       resources :process_levels
       resources :project_processes
-      post 'users/assign-role' => 'users#assign_role'
-      get 'activities/find-by-process-level' => 'activities#find_by_process_level'
-      get 'process-levels/find-by-process' => 'process_levels#find_by_process'
   	end
 end
 end

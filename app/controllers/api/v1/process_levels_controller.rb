@@ -1,9 +1,9 @@
 class Api::V1::ProcessLevelsController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_process_level, only: [:show, :update, :destroy]
     #Funcion que muesta todos los niveles
     def index
-        @process_levels = ProcessLevel.all
+        @process_levels = ProcessLevel.includes(:project_process, :process_level_status).all
         json_response(@process_levels)
     end
     #Funcion que crea un nivel
@@ -27,7 +27,7 @@ class Api::V1::ProcessLevelsController < ApplicationController
     end
     #Funcion que muesta todos los niveles de un proceso
     def find_by_process
-        @process_levels = ProcessLevel.where(project_process_id: "#{params[:project_process_id]}")
+        @process_levels = ProcessLevel.where(project_process_id: "#{params[:project_process_id]}").includes(:project_process, :process_level_status)
         json_response(@process_levels)
     end
     private
@@ -37,6 +37,6 @@ class Api::V1::ProcessLevelsController < ApplicationController
     end
     #Funcion que setea un nivel especifico
     def set_process_level
-        @process_level = ProcessLevel.find(params[:id])
+        @process_level = ProcessLevel.find(params[:id]).includes(:project_process, :process_level_status)
     end
 end

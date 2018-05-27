@@ -1,9 +1,9 @@
 class Api::V1::ActivitiesController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user!
     before_action :set_activity, only: [:show, :update, :destroy]
     #Funcion que muesta todas las actividades
     def index
-        @activities = Activities.all
+        @activities = Activities.includes(:process_level, :project_process).all
         json_response(@activities)
     end
     #Funcion que crea una actividad
@@ -27,7 +27,7 @@ class Api::V1::ActivitiesController < ApplicationController
     end
     #Funcion que muesta todas las actividades de un nivel de un proceso
     def find_by_process_level
-        @activities = Activities.where(process_level_id: "#{params[:process_level_id]}")
+        @activities = Activities.where(process_level_id: "#{params[:process_level_id]}").includes(:process_level, :project_process)
         json_response(@activities)
     end
 
@@ -38,6 +38,6 @@ class Api::V1::ActivitiesController < ApplicationController
     end
     #Funcion que setea una actividad especifica
     def set_activity
-        @activity = Activities.find(params[:id])
+        @activity = Activities.find(params[:id]).includes(:process_level, :project_process)
     end
 end
