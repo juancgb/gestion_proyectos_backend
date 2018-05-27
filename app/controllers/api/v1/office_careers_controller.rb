@@ -1,10 +1,16 @@
 class Api::V1::OfficeCareersController < ApplicationController
     #before_action :authenticate_user!
     before_action :set_office_career, only: [:show, :update, :destroy]
-    #Funcion que busca la relacion por el id de la sede
-    def index_by_office 
-        @office_careers = OfficeCareer.where(office_id: params[:office_id])
-        json_response(@office_careers)
+    before_action :office_index, only: [:find_career_by_office]
+    #Funcion que muestra todos los carreras por sede
+    def find_career_by_office 
+        @office_careers = OfficeCareer.find_career_by_office(params[:office_id])
+        json_response(@careers)
+    end
+    #Funcion que muestra todos las sedes que ofrecen una carrera
+    def find_office_by_career 
+        @office_careers = OfficeCareer.find_office_by_career(params[:career_id])
+        json_response(@careers)
     end
     #Funcion que crea una carrera en una sede
     def create
@@ -29,6 +35,9 @@ class Api::V1::OfficeCareersController < ApplicationController
     #Funcion que define los parametros aceptados por una carrera
     def office_career_params
         params.permit(:office_id, :career_id)
+    end
+    def office_index
+        params.permit(:office_id)
     end
     #Funcion que setea una carrera especifica
     def set_office_career
