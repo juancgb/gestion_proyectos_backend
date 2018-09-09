@@ -1,4 +1,4 @@
 class CareerSerializer < ActiveModel::Serializer
-  attributes :id, :faculties_id, :name, :status, :faculties
-  belongs_to :faculties
+  attributes :id, :faculty_id, :name, :status, :faculty
+  belongs_to :faculty
 end

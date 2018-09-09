@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909184054) do
+ActiveRecord::Schema.define(version: 20180909205537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,11 +37,55 @@ ActiveRecord::Schema.define(version: 20180909184054) do
     t.index ["faculty_id"], name: "index_careers_on_faculty_id"
   end
 
+  create_table "degree_projects", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.date "start_date"
+    t.date "finish_date"
+    t.date "date_exposition"
+    t.integer "score"
+    t.bigint "modalities_id"
+    t.bigint "project_states_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modalities_id"], name: "index_degree_projects_on_modalities_id"
+    t.index ["project_states_id"], name: "index_degree_projects_on_project_states_id"
+  end
+
   create_table "faculties", force: :cascade do |t|
     t.string "name"
     t.boolean "is_active"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "formats", force: :cascade do |t|
+    t.string "name"
+    t.string "route"
+    t.bigint "modalities_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modalities_id"], name: "index_formats_on_modalities_id"
+  end
+
+  create_table "modalities", force: :cascade do |t|
+    t.string "name"
+    t.string "resolution"
+    t.boolean "is_active"
+    t.bigint "office_careers_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["office_careers_id"], name: "index_modalities_on_office_careers_id"
+  end
+
+  create_table "modality_levels", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_mandatory"
+    t.boolean "request"
+    t.bigint "modalities_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modalities_id"], name: "index_modality_levels_on_modalities_id"
   end
 
   create_table "office_careers", force: :cascade do |t|
@@ -90,6 +134,12 @@ ActiveRecord::Schema.define(version: 20180909184054) do
     t.boolean "status"
     t.index ["career_id"], name: "index_project_processes_on_career_id"
     t.index ["office_id"], name: "index_project_processes_on_office_id"
+  end
+
+  create_table "project_states", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -145,6 +195,11 @@ ActiveRecord::Schema.define(version: 20180909184054) do
   add_foreign_key "activities", "process_levels"
   add_foreign_key "activities", "project_processes"
   add_foreign_key "careers", "faculties"
+  add_foreign_key "degree_projects", "modalities", column: "modalities_id"
+  add_foreign_key "degree_projects", "project_states", column: "project_states_id"
+  add_foreign_key "formats", "modalities", column: "modalities_id"
+  add_foreign_key "modalities", "office_careers", column: "office_careers_id"
+  add_foreign_key "modality_levels", "modalities", column: "modalities_id"
   add_foreign_key "office_careers", "careers"
   add_foreign_key "office_careers", "offices"
   add_foreign_key "process_levels", "process_level_statuses"
