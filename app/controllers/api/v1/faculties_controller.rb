@@ -1,4 +1,4 @@
-class Api::V1::FactultiesController < ApplicationController
+class Api::V1::FacultiesController < ApplicationController
   #before_action :authenticate_user!
   before_action :set_faculty, only: [:show, :update, :destroy]
   #Funcion que muesta todos los facultades
