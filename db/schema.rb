@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909025408) do
+ActiveRecord::Schema.define(version: 20180909184054) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 20180909025408) do
     t.boolean "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "faculties_id"
-    t.index ["faculties_id"], name: "index_careers_on_faculties_id"
+    t.bigint "faculty_id"
+    t.index ["faculty_id"], name: "index_careers_on_faculty_id"
   end
 
   create_table "faculties", force: :cascade do |t|
@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 20180909025408) do
 
   add_foreign_key "activities", "process_levels"
   add_foreign_key "activities", "project_processes"
-  add_foreign_key "careers", "faculties", column: "faculties_id"
+  add_foreign_key "careers", "faculties"
   add_foreign_key "office_careers", "careers"
   add_foreign_key "office_careers", "offices"
   add_foreign_key "process_levels", "process_level_statuses"

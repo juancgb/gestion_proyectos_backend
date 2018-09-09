@@ -37,11 +37,11 @@ class Api::V1::CareersController < ApplicationController
 
   #Funcion que define los parametros aceptados por una carrera
   def career_params
-    params.permit(:name, :faculties_id, :status)
+    params.permit(:name, :faculty_id, :status)
   end
 
   #Funcion que setea una carrera especifica
   def set_career
-    @career = Career.find(params[:id], params[:faculties_id])
+    @career = Career.find(params[:id], params[:faculty_id])
   end
 end
