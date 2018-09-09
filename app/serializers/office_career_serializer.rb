@@ -1,6 +1,5 @@
-class ActivitySerializer < ActiveModel::Serializer
-    attributes :office_id, :career_id
-    belongs_to :office
-    belongs_to :career
-  end
-  
+class OfficeCareercareerSerializer < ActiveModel::Serializer
+  attributes :office_id, :career_id, :office, :career
+  belongs_to :office
+  belongs_to :career
+end
