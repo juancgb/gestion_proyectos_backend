@@ -37,7 +37,7 @@ class Api::V1::FacultiesController < ApplicationController
 
   #Funcion que define los parametros aceptados por una facultad
   def faculty_params
-    params.permit(:name, :status)
+    params.permit(:name, :is_active)
   end
 
   #Funcion que setea una facultad especifica
