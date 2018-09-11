@@ -1,6 +1,5 @@
 class ModalitySerializer < ActiveModel::Serializer
-    attributes :id, :name, :resolution, :is_active, :office_careers, :degree_project
-    belongs_to :office_careers
-    belongs_to :degree_project
-  end
-  
+  attributes :id, :name, :office_careers_id, :resolution, :is_active, :office_career, :degree_projects
+  belongs_to :office_career
+  has_many :degree_projects
+end

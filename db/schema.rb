@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180909205537) do
+ActiveRecord::Schema.define(version: 20180911041931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,11 +44,11 @@ ActiveRecord::Schema.define(version: 20180909205537) do
     t.date "finish_date"
     t.date "date_exposition"
     t.integer "score"
-    t.bigint "modalities_id"
+    t.bigint "modality_id"
     t.bigint "project_states_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["modalities_id"], name: "index_degree_projects_on_modalities_id"
+    t.index ["modality_id"], name: "index_degree_projects_on_modality_id"
     t.index ["project_states_id"], name: "index_degree_projects_on_project_states_id"
   end
 
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20180909205537) do
   add_foreign_key "activities", "process_levels"
   add_foreign_key "activities", "project_processes"
   add_foreign_key "careers", "faculties"
-  add_foreign_key "degree_projects", "modalities", column: "modalities_id"
+  add_foreign_key "degree_projects", "modalities"
   add_foreign_key "degree_projects", "project_states", column: "project_states_id"
   add_foreign_key "formats", "modalities", column: "modalities_id"
   add_foreign_key "modalities", "office_careers", column: "office_careers_id"
