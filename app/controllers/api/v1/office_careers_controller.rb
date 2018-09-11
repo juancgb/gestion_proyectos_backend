@@ -6,7 +6,6 @@ class Api::V1::OfficeCareersController < ApplicationController
   #Funcion que muestra todos los carreras por sede
   def find_career_by_office
     @office_careers = OfficeCareer.find_career_by_office(params[:office_id])
-    @office_career.inspect
     json_response(@office_careers)
   end
 
