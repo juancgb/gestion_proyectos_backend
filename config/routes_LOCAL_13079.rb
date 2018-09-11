@@ -20,7 +20,8 @@ Rails.application.routes.draw do
       resources :process_level_statuses
       resources :process_levels
       resources :project_processes
-      resources :modalities
+      resources :project_states
+      resources :degree_projects
     end
   end
 end
