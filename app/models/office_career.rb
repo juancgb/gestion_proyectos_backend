@@ -8,4 +8,6 @@ class OfficeCareer < ApplicationRecord
   def self.find_office_by_career(career_id)
     OfficeCareer.where(office_id: career_id).includes(:office, :career)
   end
+
+  validates :office_id, uniqueness: { scope: :career_id}
 end
